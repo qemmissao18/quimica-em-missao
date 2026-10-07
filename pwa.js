@@ -11,6 +11,8 @@
   const syncButtons = () => buttons.forEach(b => b.hidden = installed());
   function showHelp(text) {
     lastFocus = document.activeElement;
+    const oldGuide = dialog.querySelector('.pwa-ios-guide');
+    if(oldGuide) oldGuide.remove();
     message.textContent = text;
     dialog.hidden = false;
     document.getElementById('pwa-close').focus();
@@ -33,7 +35,18 @@
       return;
     }
     const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(ios) showHelp('No iPhone ou iPad, abra este site no Safari. Toque em Compartilhar e em Adicionar à Tela de Início. Se aparecer Abrir como App da Web, mantenha essa opção ativada e toque em Adicionar.');
+    if(ios) {
+      showHelp('No iPhone ou iPad, a instalação é feita pelo menu do Safari. Você só precisa fazer isso uma vez:');
+      const guide = document.createElement('div');
+      guide.className = 'pwa-ios-guide';
+      guide.innerHTML = `<ol class="pwa-ios-steps">
+        <li><strong>Abra este site no Safari</strong><span>Se estiver dentro do WhatsApp ou Instagram, use a opção Abrir no navegador e escolha o Safari, ou copie o link e cole no Safari.</span></li>
+        <li><strong>Toque em Compartilhar <svg class="pwa-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 16V2m-4 4 4-4 4 4M7 10H4v12h16V10h-3"/></svg></strong><span>Procure o símbolo de um quadrado com uma seta para cima. Ele pode estar na barra do Safari ou dentro do menu ⋯.</span></li>
+        <li><strong>Escolha Adicionar à Tela de Início</strong><span>Role a lista de opções para encontrar. Se não aparecer, procure em Editar Ações.</span></li>
+        <li><strong>Confirme em Adicionar</strong><span>Se aparecer Abrir como App da Web, deixe essa opção ativada.</span></li>
+      </ol><p class="pwa-ios-done">Pronto! Depois, toque no ícone <strong>Química em Missão</strong> na Tela de Início para abrir.</p>`;
+      message.after(guide);
+    }
     else if(/Android/i.test(navigator.userAgent)) showHelp('No Chrome, abra o menu ⋮ e procure Instalar aplicativo ou Adicionar à tela inicial. Se a instalação ainda não aparecer, aguarde o carregamento do site e tente novamente. Navegadores dentro de outros aplicativos podem exigir Abrir no Chrome.');
     else showHelp('No computador, procure Instalar Química em Missão na barra de endereço ou no menu do Chrome/Edge. No Safari do Mac, procure Arquivo → Adicionar ao Dock. Se o navegador não oferecer instalação, você pode continuar usando o site normalmente.');
   }));
