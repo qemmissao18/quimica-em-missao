@@ -1,5 +1,5 @@
 /* Increment this version when changing the PWA shell assets. HTML uses network-first even without a version bump. */
-const VERSION = '2026-10-07-quiz-feedback-1';
+const VERSION = '2026-10-08-quiz-feedback-2';
 const CACHE = 'qem-pwa-' + VERSION;
 const BASE = new URL('./', self.location.href);
 const ASSETS = ['index.html','pwa.js','pwa.css','manifest.webmanifest','icon-192.png','icon-512.png','apple-touch-icon.png'];
