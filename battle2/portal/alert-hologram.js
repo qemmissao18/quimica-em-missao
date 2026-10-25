@@ -1,0 +1,9 @@
+import * as T from 'portal/vendor/three.module.js';
+export function alertLines(count){if(count>=11)return ['ACESSO NEGADO','11 FALHAS REGISTRADAS','VOCÊ FOI ELIMINADO'];if(count===10)return ['ÚLTIMA CHANCE','10 DE 11 FALHAS','MAIS UM ERRO: ELIMINAÇÃO'];if(count>=6)return ['ALERTA CRÍTICO',`${count} DE 11 FALHAS REGISTRADAS`,'ACESSO EM RISCO'];if(count===5)return ['ALERTA DE SEGURANÇA','5 FALHAS REGISTRADAS','RISCO DE ELIMINAÇÃO'];return ['FALHA REGISTRADA',`${count} DE 11 FALHAS`];}
+export function buildAlert(){const group=new T.Group();group.visible=false;let texture=null;
+ const material=new T.MeshBasicMaterial({color:0xff4355,transparent:true,opacity:.8,side:T.DoubleSide,depthWrite:false});
+ const screen=new T.Mesh(new T.PlaneGeometry(3.8,1.7),material);group.add(screen);
+ const edge=new T.LineSegments(new T.EdgesGeometry(new T.BoxGeometry(3.9,1.8,.04)),new T.LineBasicMaterial({color:0xff5669,transparent:true,opacity:.8}));group.add(edge);
+ const projector=new T.Mesh(new T.ConeGeometry(.35,.6,24,1,true),new T.MeshBasicMaterial({color:0xff3447,transparent:true,opacity:.15,side:T.DoubleSide,depthWrite:false}));projector.position.y=-1.2;group.add(projector);
+ return {group,show(count){group.visible=true;if(typeof document==='undefined')return;const c=document.createElement('canvas');c.width=1024;c.height=448;const x=c.getContext('2d');x.fillStyle='#21050de8';x.fillRect(0,0,1024,448);x.textAlign='center';x.fillStyle='#ffb3b9';x.font='bold 76px sans-serif';x.fillText('⚠',512,90);alertLines(count).forEach((s,i)=>{x.font=`bold ${i===0?48:38}px sans-serif`;x.fillText(s,512,170+i*78);});texture?.dispose();texture=new T.CanvasTexture(c);texture.colorSpace=T.SRGBColorSpace;material.map=texture;material.color.set(0xffffff);material.needsUpdate=true;},tick(age,reduced=false,persistent=false){group.visible=persistent||age<4;group.scale.setScalar(reduced?1:Math.min(1,.15+age*4));material.opacity=reduced?.9:.8+.08*Math.sin(age*2);}};
+}

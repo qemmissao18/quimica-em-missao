@@ -1,0 +1,25 @@
+.site-return{display:inline-flex;align-items:center;min-height:44px;padding:8px;color:#dcfff7;text-decoration:none;border:1px solid #7ba9c1;border-radius:10px;white-space:nowrap}
+.site-return:focus-visible{outline:3px solid #ffd27e}
+#toolbar{flex-wrap:wrap;justify-content:flex-end}
+#settings{max-width:calc(100vw - 24px)}
+#projection{top:112px;max-height:34dvh;overflow:auto}
+#projection p{max-height:9dvh;overflow:auto}
+#room .b2-detail{top:auto;bottom:12px;left:12px;max-width:min(360px,calc(100vw - 24px));max-height:22dvh;font-size:14px}
+#teacher-tools{top:auto!important;bottom:10px;right:10px!important;width:auto!important;max-width:calc(100vw - 20px)}
+#teacher-tools[open]{width:min(380px,calc(100vw - 20px))!important;max-height:55dvh!important}
+#teacher-tools:not([open]){padding:6px 10px!important;font-size:13px}
+@media(max-width:700px){
+ #hud{align-items:center}#toolbar{flex-basis:100%;justify-content:center;margin:0}#toolbar button,.site-return{padding:6px 8px;font-size:12px}
+ #projection{top:118px;width:150px}#projection canvas{height:85px}
+ #mission{max-height:48dvh}#mission.minimized{max-height:60px}
+ #settings{top:112px;max-height:65dvh!important}
+}
+@media(max-height:460px){#hud{flex-wrap:nowrap;font-size:11px}#toolbar{flex-basis:auto;margin-left:auto}#response-progress{display:none}#projection{top:62px;width:140px;max-height:30dvh}#settings{top:62px}#mission{max-height:52dvh}}
+
+body:has(#splash:not([hidden])) #hud,body:has(#splash:not([hidden])) #mission{visibility:hidden}
+#teacher-tools:not([open]){position:static!important;max-height:none!important;margin:0;align-self:center}
+#teacher-tools[open]{position:fixed!important;top:110px!important;bottom:auto;right:10px!important}
+#teacher-tools summary{cursor:pointer;min-height:32px;display:flex;align-items:center}
+@media(max-height:460px){#teacher-tools[open]{top:60px!important;max-height:70dvh!important}}
+#projection,#settings,#teacher-tools[open]{top:calc(var(--hud-height,100px) + 8px)!important}
+@media(max-width:700px){#toolbar{gap:2px}#toolbar>button,#toolbar>.site-return{min-width:44px;padding:4px}#teacher-tools summary{font-size:12px}}
