@@ -35,3 +35,9 @@ A verificação completa de multiplayer em dois dispositivos não foi concluída
 6. Compare enunciado, tempo e contagem de respostas nos aparelhos; responda, avance rodadas, teste reconexão, eliminação e ranking. Use **Sair da sala** ao terminar.
 
 A prévia usa o backend existente da Batalha 2.0. Demonstração e salas competitivas possuem fluxos separados. Nenhuma alteração de esquema, política de acesso ou liberação do banco foi feita nesta integração.
+
+## Revisão de 28/10/2026
+
+- Respostas de sincronização antigas são descartadas: um retorno atrasado não pode desfazer uma resposta confirmada, voltar a uma rodada anterior nem substituir a nova partida pela partida encerrada.
+- O painel de questões permanece oculto após o encerramento, inclusive durante a sincronização periódica.
+- Quatro testes automatizados de ordenação passaram: `node --test tests/snapshot-order.test.mjs`. São testes da lógica do cliente; não substituem o teste completo em dois celulares descrito acima.
