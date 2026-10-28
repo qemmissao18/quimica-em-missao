@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@supabase/supabase-js": "2.49.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0"
+  },
+  "private": true,
+  "name": "quimica-em-missao",
+  "scripts": {
+    "build:client": "node scripts/build-client.mjs"
+  }
+}

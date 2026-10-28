@@ -1,0 +1,3007 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Batalha 2.0 · Química em Missão</title><style>#room .b2-portal{background:#071527;color:#e2f8ff;border:1px solid #37bde2;border-radius:20px;overflow:hidden;margin:18px 0;max-width:100%}#room .b2-portal[hidden]{display:none}#room .b2-portal header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:16px;color:#8ee9ff}#room .b2-portal header span{font-size:.8rem}#room .b2-view{position:relative;height:clamp(240px,48vh,480px);width:100%}#room .b2-view canvas{width:100%;height:100%;display:block;touch-action:none;cursor:grab}#room .b2-view canvas:focus-visible{outline:3px solid #ffe08c;outline-offset:-4px}#room .b2-hint{position:absolute;bottom:0;left:12px;right:12px;pointer-events:none;background:#071527bb;padding:8px;font-size:.85rem}#room .b2-controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px}#room .b2-controls button{background:#153449;color:#e2f8ff;border:1px solid #3c9cbe;border-radius:10px;padding:12px;min-height:44px;font:inherit;font-size:.85rem;cursor:pointer}#room .b2-controls button[aria-pressed=true]{border-color:#ffe092}#room .b2-controls label{display:flex;gap:8px;align-items:center;font-size:.85rem}#room .b2-information{padding:0 16px 16px;line-height:1.6;margin:0;min-height:5em}#room .b2-controls button:focus-visible{outline:3px solid #ffe08c}@media(max-width:560px){#room .b2-controls button{flex:1 1 42%}#room .b2-portal header{font-size:.85rem}}
+#room .b2-hints{position:sticky;top:8px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:#071527;color:#e2f8ff;border:1px solid #37bde2;border-radius:12px;padding:10px;margin:10px 0}#room .b2-hints[hidden]{display:none}#room .b2-hints button{min-height:44px;background:#163b52;color:#fff;border:1px solid #6edfff;border-radius:8px;padding:8px 12px}#room .b2-hints button:disabled{opacity:.65}#room .b2-hints label{font-size:.8rem;display:flex;align-items:center;gap:5px}#room .b2-hints input[type=range]{width:80px}#room .b2-hints p{flex-basis:100%;margin:0;line-height:1.4;max-height:24vh;overflow:auto}#room .b2-hints button:focus-visible{outline:3px solid #ffe08c}
+#room .b2-finale{background:#050d20;color:#f5f5ff;border:2px solid #b7cfff;border-radius:20px;padding:16px;margin:16px 0;text-align:center;overflow:hidden}
+#room .b2-finale canvas{display:block;width:100%;max-height:420px;touch-action:pan-y}
+#room .b2-finale button{padding:12px 16px;min-height:44px;border-radius:12px;background:#edf2ff;color:#142342;cursor:pointer}
+#room .b2-finale button:focus-visible{outline:3px solid #ffd95c;outline-offset:3px}
+#room .b2-finale p,#room .b2-finale h3{overflow-wrap:anywhere}
+
+.b2-transition-caption{position:absolute;top:15%;left:5%;right:5%;z-index:3;text-align:center;color:#fff;background:#071727e6;padding:16px;border:1px solid #69dcff;pointer-events:none}
+
+#room .b2-equipment-list{display:flex;flex-wrap:wrap;gap:8px;padding:12px}#room .b2-equipment-list button{font:600 1rem system-ui;min-height:48px;padding:10px 14px;border:1px solid #88d9ef;border-radius:8px;background:#113347;color:#fff}#room .b2-detail{margin:12px;padding:20px;background:#edf9ff;color:#102738;border-radius:12px;line-height:1.7;font-size:clamp(18px,2vw,22px);overflow-wrap:anywhere}#room .b2-detail[hidden]{display:none}#room .b2-detail h3{font-size:1.25em}#room .b2-detail button{min-height:44px;padding:10px;font:inherit}#room .b2-equipment-list button:focus-visible{outline:3px solid #ffe07a}@media(max-width:560px){#room .b2-equipment-list button{flex:1 1 45%}#room .b2-detail{padding:14px;margin:8px}}
+
+#room .b2-round-direction{padding:12px 16px;border-top:1px solid #36576a;background:#0b1c2b}#room .b2-round-direction p{line-height:1.5;margin:8px 0}#room .b2-round-direction button{min-height:44px;padding:10px 16px;background:#143c4d;color:#fff;border:1px solid #78cbdc;border-radius:8px;font:inherit}#room .b2-round-direction button:focus-visible{outline:3px solid #ffe08c}
+.demo-entry{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;color:#eafffa!important;background:#10544e;border:1px solid #8ce6d1;border-radius:10px;text-decoration:none;font:600 16px system-ui;line-height:1.4}.demo-entry:hover{background:#176d64}.demo-entry:active{background:#0b3b37}.demo-entry:focus-visible{outline:3px solid #ffe699;outline-offset:3px}#teacher-tools button,#teacher-tools select{min-height:44px;margin:5px 0;max-width:100%}#teacher-tools label{display:block;margin-top:10px}</style><style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#040914;color:#eefaff;font:16px system-ui}button{font:inherit;min-height:44px;color:inherit;background:#112b41;border:1px solid #7ba9c1;border-radius:10px;padding:8px 12px;cursor:pointer}button:disabled{opacity:.55;cursor:default}button:focus-visible,summary:focus-visible{outline:3px solid #ffd27e}#room{position:fixed;inset:0}#room>.b2-portal{position:absolute;inset:0;margin:0;border:0;border-radius:0}#room .b2-view{height:100%;width:100%}#room .b2-portal>header,#room .b2-hint,#room .b2-controls,#room .b2-equipment-list,#room .b2-information,#room .b2-round-direction,#room>button,#room>select{display:none!important}#room .b2-detail{position:absolute;top:70px;left:12px;max-width:360px;max-height:28vh;overflow:auto;font-size:16px;z-index:4}#hud{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px max(12px,env(safe-area-inset-right));background:#061321dd;z-index:5;font-size:14px}#clock{font:bold 24px ui-monospace;color:#ffdf92}#toolbar{margin-left:auto;display:flex;gap:6px}#mission{position:fixed;bottom:0;left:0;right:0;z-index:6;padding:12px max(14px,env(safe-area-inset-right));background:linear-gradient(120deg,#091b32f2,#1d1031ed);border-top:1px solid #9ee3ff;border-radius:20px 20px 0 0;box-shadow:0 -8px 32px #0006;max-height:51dvh;overflow:auto}#mission h2{font-size:14px;color:#c0b1ff;margin:0 0 6px;letter-spacing:.08em}#stem{margin:8px 0;font-size:clamp(16px,2vw,21px);line-height:1.4;min-height:2.8em}#opts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}#opts button{text-align:left;background:#172b43e8;line-height:1.25;min-height:50px;overflow-wrap:anywhere}#opts strong{color:#a8e3ff;margin-right:8px}#status{min-height:1.4em;margin:6px 0;font-weight:bold}#next{float:right}#hintbox{position:fixed;right:12px;top:75px;z-index:7;width:min(340px,85vw);padding:14px;background:#101a30ed;border:1px solid #bb9eff;border-radius:12px;font-size:16px;line-height:1.5}#splash{position:fixed;inset:0;display:grid;place-items:center;background:#050c1ded;z-index:20;padding:20px}#splash article{max-width:560px;padding:28px;border:1px solid #8de1ff;border-radius:20px;background:#102038}#splash p{line-height:1.6}#settings{position:fixed;top:65px;right:12px;z-index:9;background:#091b2ef5;border:1px solid #6394ac;padding:12px;border-radius:12px}#settings label{display:block;padding:8px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}[hidden]{display:none!important}#mission.minimized>#content{display:none}.cursor::after{content:' ▌';color:#81ddff}.success{box-shadow:inset 0 0 40px #48dba066!important}.error{box-shadow:inset 0 0 40px #f7656566!important}.shake{animation:shake .25s 1}@keyframes shake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}@media(max-width:700px){#opts{grid-template-columns:repeat(3,minmax(0,1fr))}#hud{gap:5px;font-size:12px}#hud .scene-name{display:none}#mission{padding:9px 10px}#stem{font-size:16px}#toolbar button{padding:6px 9px}}@media(orientation:portrait){#mission{max-height:60dvh}#opts{grid-template-columns:1fr 1fr}#portrait{display:block!important}}@media(max-height:460px){#mission{max-height:57dvh}#stem{min-height:0;font-size:16px;margin:4px 0}#opts button{min-height:44px;font-size:14px}#status{margin:2px 0}}
+#projection{position:fixed;top:66px;left:12px;z-index:4;width:min(290px,44vw);background:#061e2bd9;border:1px solid #63e6f3;border-radius:12px;overflow:hidden}#projection canvas{width:100%;height:140px;display:block}#projection p{font-size:13px;margin:4px 10px}#projection small{display:block;font-size:10px;margin:6px 10px;color:#b6d5df}#projection button{width:100%;font-size:12px} @media(max-width:700px){#projection{top:100px;width:170px}#projection canvas{height:95px}#projection p{font-size:11px}} input,select{font:inherit;color:#eaf8ff;background:#152a3e;border:1px solid #6d9da8;border-radius:6px;padding:8px;max-width:100%}#splash{overflow:auto;display:block}#splash article{margin:20px auto}#splash label{display:block;margin:12px 0}#splash input{display:block;width:100%}#ceremony{position:fixed;inset:0;z-index:30;overflow:auto;background:#060d1ef5;padding:20px;text-align:center}#ceremony canvas{display:block;width:min(620px,100%);height:300px;margin:auto}#ceremony h3{color:#ffdf8e;font-size:clamp(20px,4vw,30px)}#ceremony p{max-width:680px;margin:12px auto;line-height:1.5}.ranking-scroll{overflow:auto;max-height:40vh;margin:20px auto;max-width:850px}#ceremony table{width:100%;border-collapse:collapse;text-align:left}#ceremony th,#ceremony td{padding:12px;border-bottom:1px solid #52647b}#ceremony caption{padding:10px}.podium-1{background:#6e562333}.podium-2{background:#bcdfff22}.podium-3{background:#e18b4b22}#gallery-panel{position:fixed;bottom:12px;left:12px;right:12px;padding:12px;background:#061e2bf0;z-index:10}#gallery-panel select{max-width:65vw}@media(max-width:600px){#ceremony canvas{height:240px}#ceremony{padding:12px}#ceremony th,#ceremony td{padding:8px;font-size:13px}} #ceremony.over-scene{inset:auto 0 0;background:#06101ddd;max-height:40vh;padding:12px} #ceremony.over-scene h2{font-size:20px;margin:4px} /* Entry terminal only: the approved game UI is unchanged. */
+#splash{padding:0;display:block;overflow:auto;background:linear-gradient(90deg,#031721bb,#03172128 50%,#031721aa);color:#dcfff7;isolation:isolate}
+#splash::before,#splash::after{content:'';position:fixed;left:0;right:0;height:7px;background:repeating-linear-gradient(125deg,#bda65b 0 15px,#17292b 15px 30px);z-index:-1;opacity:.8}#splash::before{top:0}#splash::after{bottom:0}
+.access-top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:25px 4vw 18px;border-bottom:1px solid #56d7c43b;background:#04191dcc;font:12px ui-monospace,monospace;letter-spacing:.12em}.access-brand{color:#c5fff1;text-decoration:none;font-weight:bold}.access-brand span{color:#5eeec8}.access-state{color:#6ef6bf;white-space:nowrap}
+#splash .access-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.94fr);gap:clamp(30px,10vw,170px);max-width:1340px;margin:auto;padding:clamp(24px,5vh,65px) 4vw 24px;align-items:center}
+#splash .holo-panel{max-width:none;margin:0;padding:clamp(20px,2.3vw,34px);border-radius:4px 24px 4px 24px;background:linear-gradient(140deg,#063d41ed,#04232ce8);border:1px solid #53d2bb99;box-shadow:inset 0 0 30px #1de0b00a,0 18px 60px #0008;position:relative;backdrop-filter:blur(5px)}
+.terminal-label{color:#76f9cb;font:11px ui-monospace,monospace;letter-spacing:.13em;padding-bottom:15px;border-bottom:1px solid #58b5a34a}
+#splash h1{font-size:clamp(30px,3.3vw,49px);line-height:1.05;letter-spacing:-.04em;margin:24px 0 18px;color:#e6fff7}#splash .lead{font-size:16px;line-height:1.55;color:#b8dad7}.mission-stats{display:flex;gap:26px;margin:25px 0;border-top:1px solid #5edbbb3a;border-bottom:1px solid #5edbbb3a;padding:18px 0}.mission-stats b{display:block;font:27px ui-monospace,monospace;color:#89ffda}.mission-stats span{font-size:11px;color:#bfd9d2;text-transform:uppercase;letter-spacing:.06em}
+.access-route{padding:0;list-style:none;display:grid;gap:12px;margin:0}.access-route li{display:flex;gap:12px;align-items:center;font-size:13px}.access-route li>span{color:#6ce8ce;font:11px ui-monospace,monospace}.access-route small{margin-left:auto;color:#a6c8c1;white-space:nowrap}#splash .access-footnote{font-size:12px;color:#9fc3bd;line-height:1.5;margin-bottom:0}
+.lock-display{display:flex;align-items:center;gap:16px;margin:20px 0;color:#73f9d4}.lock-display>span{display:grid;place-items:center;width:50px;height:50px;border:1px solid #6deac2;border-radius:50%;font-size:32px;box-shadow:0 0 22px #1df3b51c}.lock-display small{font:10px ui-monospace,monospace;letter-spacing:.16em}#splash h2{font-size:23px;margin:15px 0}.access-tabs{display:flex;gap:8px;margin:20px 0}#splash button{border-radius:5px;transition:background .15s}#splash .access-tabs button{flex:1;font-size:13px;background:#06303b;border:1px solid #62bea7}#splash .access-tabs button[aria-pressed=true]{background:#0c655e;color:#effff9;border-color:#80ffe0}#splash .access-console>label,#join-fields>label{font:10px ui-monospace,monospace;letter-spacing:.13em;display:block;margin:20px 0 8px}
+#splash #nickname,#splash #roomcode{width:100%;background:#021e25;border:1px solid #3f998b;border-radius:4px;padding:13px;min-height:48px;color:#e0fff4}#splash #roomcode{font:22px ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase}#splash #code-help{font-size:12px;color:#b6d3cd;margin:9px 0}#splash .access-primary{width:100%;margin-top:20px;background:#65ebc6;color:#042724;border:1px solid #a2ffe3;font:bold 12px ui-monospace,monospace;letter-spacing:.08em;box-shadow:0 0 26px #3beac026;min-height:50px}#splash .access-primary:hover{background:#a1ffe1}.demo-disclosure{border-top:1px solid #71c4b43b;padding-top:15px;margin-top:20px}.demo-disclosure strong{font:10px ui-monospace,monospace;color:#d4c58d}.demo-disclosure p{font-size:12px;line-height:1.5!important;color:#b0c5c0;margin:8px 0 0}
+#create-fields{border:0;padding:0;margin:20px 0 0}#create-fields legend{font:10px ui-monospace,monospace;letter-spacing:.1em;margin-bottom:8px}#splash .role-option{display:flex;gap:10px;align-items:flex-start;border:1px solid #35786e;border-radius:5px;padding:12px;margin:8px 0;background:#04272c}#splash .role-option input{width:18px;margin:2px 0 0;accent-color:#6ceac5;flex:none}#splash .role-option b{font-size:13px;display:block}#splash .role-option small{font-size:11px;line-height:1.5;color:#b3cfc7;display:block;margin-top:4px}
+.access-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0 4vw 20px;color:#91bdb5;font:10px ui-monospace,monospace;letter-spacing:.05em}.access-bottom details{max-width:420px;background:#04242deb;padding:12px;border:1px solid #366c67}.access-bottom details[open]{font:13px system-ui}.access-bottom button,.access-bottom select{margin:8px 0;width:100%}.access-bottom summary{cursor:pointer;min-height:30px;display:flex;align-items:center}#splash :focus-visible{outline:3px solid #ffe699;outline-offset:3px}#notice{color:#ffe3aa;font-size:13px}#lobby-preview{position:fixed;inset:0;overflow:auto;background:#03171dee;padding:6vh 20px;z-index:3}#lobby-preview>.holo-panel{max-width:620px;margin:auto}#lobby-preview p{font-size:14px}.pending-code{border:1px solid #428e81;padding:20px;font:11px ui-monospace,monospace;letter-spacing:.08em}.pending-code strong{display:block;font-size:27px;margin:15px 0}.pending-code small{display:block;line-height:1.5;color:#b1d1c9}
+@media(max-width:760px){.access-top{padding:23px 20px 15px;flex-wrap:wrap;gap:10px;font-size:10px}#splash .access-layout{grid-template-columns:1fr;gap:22px;padding:24px 18px}.access-console{order:-1}#splash h1{font-size:32px}.access-bottom{display:block;margin:5px 18px 25px}.access-bottom details{max-width:none;margin-top:15px}.access-route li{font-size:12px}}@media(prefers-reduced-motion:reduce){#splash button{transition:none}}
+#response-progress{display:flex;flex-direction:column;gap:4px;min-width:120px;font-size:12px;color:#bbf8e5}#response-bar{width:120px;height:5px;accent-color:#66e5be}#response-bar::-webkit-progress-bar{background:#244153;border-radius:6px}#response-bar::-webkit-progress-value{background:#66e5be;border-radius:6px}#response-bar::-moz-progress-bar{background:#66e5be}@media(max-width:700px){#response-progress{min-width:92px;font-size:11px}#response-bar{width:92px}} .demo-entry{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;color:#eafffa!important;background:#10544e;border:1px solid #8ce6d1;border-radius:10px;text-decoration:none;font:600 16px system-ui;line-height:1.4}.demo-entry:hover{background:#176d64}.demo-entry:active{background:#0b3b37}.demo-entry:focus-visible{outline:3px solid #ffe699;outline-offset:3px}#teacher-tools button,#teacher-tools select{min-height:44px;margin:5px 0;max-width:100%}#teacher-tools label{display:block;margin-top:10px}</style><link rel="stylesheet" href="./integration.css"><section id="room" class="on"><div id="lobby"></div></section>
+<header id="hud"><span class="scene-name">Portal dos Íons</span><b id="progress">Missão 1/15</b><span id="clock" aria-label="Tempo restante">60</span><span id="score">0 pts</span><div id="response-progress" aria-label="Respostas confirmadas nesta rodada"><span id="response-count" role="status" aria-live="polite">0 de 1 respondeu</span><progress id="response-bar" max="1" value="0" aria-label="Progresso das respostas"></progress></div><span>BATALHA 2.0</span><nav id="toolbar"><a class="site-return" href="../index.html">← Site</a><button id="hint" aria-label="Usar dica">💡 3</button><button id="look" aria-label="Centralizar câmera">◎</button><button id="fullscreen" aria-label="Tela cheia">⛶</button><button id="mute" aria-label="Abrir controles de áudio" aria-controls="settings" aria-expanded="false">🔊</button><button id="config" aria-label="Configurações" aria-expanded="false">⚙</button></nav></header>
+<aside id="settings" hidden style="max-height:75dvh;overflow:auto"><label><input id="reduced" type="checkbox"> Reduzir movimento</label><label><input id="sound" type="checkbox"> Silenciar todos os sons</label><label><input id="shake" type="checkbox" checked> Tremor moderado</label><label>Volume geral<input id="volume-master" type="range" min="0" max="1" step="0.05" value="1"></label><label>Efeitos<input id="volume-effects" type="range" min="0" max="1" step="0.05" value="0.65"></label><label>Música<input id="volume-music" type="range" min="0" max="1" step="0.05" value="0.5"></label><label>Narração<input id="volume-voice" type="range" min="0" max="1" step="0.05" value="0.85"></label><label><input id="auto-voice" type="checkbox"> Narração automática</label><label><input id="low-flash" type="checkbox"> Reduzir luzes</label><label><input id="low-particles" type="checkbox"> Reduzir partículas</label><p id="portrait" hidden>Na horizontal há mais espaço para explorar.</p></aside>
+<section id="mission"><button id="minimize" style="float:right" aria-expanded="true">Explorar</button><h2 id="title">TRANSMISSÃO</h2><div id="content"><p id="stem" tabindex="0" aria-label="Toque ou pressione Enter para revelar o enunciado"></p><span id="readable" class="sr"></span><nav aria-label="Narração"><button id="speak">Ouvir questão</button><button id="pause-voice">Pausar/continuar</button><button id="stop-voice">Parar leitura</button></nav><div id="opts"></div><p id="status" role="status" aria-live="polite"></p><button id="next" hidden>Próxima missão</button></div></section><aside id="hintbox" hidden role="status"></aside>
+<div id="splash">
+ <header class="access-top"><a class="access-brand" href="../index.html" aria-label="Voltar ao site">Q<span>EM</span> / BATALHA DAS FUNÇÕES</a><span class="access-state">● TERMINAL DE ACESSO</span></header>
+ <main class="access-layout">
+ <article class="holo-panel briefing"><div class="terminal-label">ARQUIVO DE MISSÃO / 001</div><h1>A ciência abre<br>todas as portas.</h1><p class="lead">Entre no complexo. Investigue cinco setores e enfrente os desafios das funções inorgânicas.</p>
+ <div class="mission-stats"><div><b>05</b><span>ambientes</span></div><div><b>15</b><span>questões</span></div><div><b>60 s</b><span>por questão</span></div></div>
+ <ol class="access-route"><li><span>01</span>Portal dos Íons <small>3 fáceis</small></li><li><span>02</span>Câmara dos Cristais <small>3 médias</small></li><li><span>03</span>Laboratório das Soluções <small>3 médias</small></li><li><span>04</span>Reator de Neutralização <small>3 médias</small></li><li><span>05</span>Núcleo da Química <small>3 difíceis</small></li></ol>
+ <p class="access-footnote">Três dicas por partida. Acertos e rapidez valem pontos. Ao atingir 11 respostas erradas, a participação é encerrada. Tempo esgotado vale zero, sem contar como resposta errada.</p>
+ </article>
+ <article class="holo-panel access-console"><div class="terminal-label">◉ IDENTIFICAÇÃO / ACESSO RESTRITO</div><div class="lock-display" aria-hidden="true"><span>⌑</span><small>PORTA BLOQUEADA</small></div>
+ <h2>Como você vai entrar?</h2><div class="access-tabs" role="group" aria-label="Modo de acesso"><button id="entry-join" aria-pressed="true">Entrar com código</button><button id="entry-create" aria-pressed="false">Criar sala</button></div>
+ <label for="nickname">SEU NOME</label><input id="nickname" maxlength="24" placeholder="Como você quer ser chamado(a)?" autocomplete="nickname">
+ <section id="join-fields"><label for="roomcode">CÓDIGO DA SALA</label><input maxlength="6" inputmode="numeric" pattern="[0-9]{6}" id="roomcode" placeholder="· · · · · ·" autocapitalize="characters" autocomplete="off" aria-describedby="code-help"><p id="code-help">Recebeu um código? Você entrará como jogador(a).</p></section>
+ <fieldset id="create-fields" hidden><legend>QUEM ESTÁ CRIANDO A SALA?</legend><label class="role-option"><input type="radio" name="host-role" value="host_observer" checked><span><b>Anfitrião(ã) observador(a)</b><small>Cria e acompanha. Não joga nem entra no ranking.</small></span></label><label class="role-option"><input type="radio" name="host-role" value="host_player"><span><b>Jogador(a) anfitrião(ã)</b><small>Cria a sala e compete. Remoção de participantes somente antes do início.</small></span></label></fieldset>
+ <button id="start" class="access-primary">VALIDAR CÓDIGO →</button><button id="create-preview" class="access-primary" hidden>VISUALIZAR SALA DE ESPERA →</button><p id="notice" role="status" aria-live="polite"></p>
+ <p><a class="demo-entry" href="teacher-demo.html">Explorar jogo — Modo demonstração</a> · individual, sem sala competitiva</p><div class="demo-disclosure"><strong>BATALHA 2.0 · MULTIPLAYER</strong><p>Crie uma sala e compartilhe o código de seis dígitos. São necessários pelo menos dois jogadores. Para explorar sozinho, use o modo demonstração.</p></div>
+ </article>
+ </main>
+ <footer class="access-bottom"><span>QUÍMICA EM MISSÃO · INVESTIGAR PARA DESCOBRIR</span><details hidden><summary>TESTAR JOGO — PRÉVIA DO PROFESSOR</summary><p>Ferramentas visuais locais. Não alteram a sala.</p><label>Simular alerta <select id="test-error"><option>1</option><option>5</option><option>6</option><option>8</option><option>10</option></select></label><button id="trigger-alert">Testar sirene e holograma</button><button id="gallery-open">Examinar os 160 hologramas</button><label for="award-choice">Prévia dos selos</label><select id="award-choice"><option value="1">1º · Ouro</option><option value="2">2º · Prata</option><option value="3">3º · Bronze</option><option value="4">Participação</option></select><button id="awards-open">Visualizar selo e animação</button><label>Ambiente da eliminação <select id="elimination-room"><option value="10">Reator · questão 11</option><option value="13">Núcleo · questão 14</option></select></label><button id="elimination-preview">Conferir efeito de eliminação</button></details></footer>
+ <section id="lobby-preview" hidden aria-label="Sala de espera"><div class="holo-panel"><div class="terminal-label">SALA DE ESPERA</div><h2 id="lobby-role"></h2><p id="lobby-person"></p><div class="pending-code">CÓDIGO DA SALA<strong>— — — — — —</strong><small>Será gerado pelo servidor na integração multiplayer.</small></div><p id="lobby-description"></p><h3>Participantes conectados</h3><p>A admissão e remoção são controladas por quem criou a sala. Observadores não contam como jogadores nem ocupam o ranking.</p><button id="lobby-back">Voltar ao terminal</button></div></section>
+</div>
+<section id="ceremony" hidden role="dialog" aria-modal="true" aria-label="Resultado da missão"></section><aside id="gallery-panel" hidden><label>Questão <select id="gallery-choice"></select></label><button id="gallery-close">Voltar ao acesso</button></aside><aside id="projection" hidden><button id="projection-toggle" aria-expanded="true">Holograma da investigação · recolher</button><div id="projection-body"><canvas aria-label="Representação tridimensional contextual da pergunta"></canvas><p></p><small>Modelo ilustrativo; cores não identificam substâncias.</small></div></aside><script type="importmap">{"imports": {"portal/demo/captcha.js": "./portal/demo/captcha.js", "portal/demo/multiplayer.js": "./portal/demo/multiplayer.js", "portal/alert-hologram.js": "./portal/alert-hologram.js", "portal/demo/audio.js": "./portal/demo/audio.js", "portal/cinematic-effects.js": "./portal/cinematic-effects.js", "portal/vendor/three.module.js": "./portal/vendor/three.module.js", "portal/architecture.js": "./portal/architecture.js", "portal/everyday.js": "./portal/everyday.js", "portal/art-direction.js": "./portal/art-direction.js", "portal/round-direction.js": "./portal/round-direction.js", "portal/vault.js": "./portal/vault.js", "portal/sector-transition.js": "./portal/sector-transition.js", "portal/scientific-models.js": "./portal/scientific-models.js", "portal/environments.js": "./portal/environments.js", "portal/portal-finish.js": "./portal/portal-finish.js", "portal/portal.js": "./portal/portal.js", "portal/demo/controller.mjs": "./portal/demo/controller.mjs", "portal/demo/hologram.js": "./portal/demo/hologram.js", "portal/demo/game-rules.mjs": "./portal/demo/game-rules.mjs", "portal/demo/ceremony.js": "./portal/demo/ceremony.js", "portal/finale.mjs": "./portal/finale.mjs"}}</script><script type="module">import {installMultiplayer} from 'portal/demo/multiplayer.js';
+import {GameAudio} from 'portal/demo/audio.js';
+import {presentResult} from 'portal/demo/ceremony.js';
+import {errorCount,rankPlayers,observerMay,responseProgress} from 'portal/demo/game-rules.mjs';
+import 'portal/portal.js';
+import {showHologram,hideHologram} from 'portal/demo/hologram.js';
+import {DemoRound} from 'portal/demo/controller.mjs';
+const questions=[];
+const catalog=[
+  {
+    "id": 1,
+    "source_id": "BF2-001",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou HCl(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-001",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou HCl(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "HCl(aq)"
+      ],
+      "seed": 1
+    }
+  },
+  {
+    "id": 2,
+    "source_id": "BF2-002",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou HNO3(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-002",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou HNO3(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "HNO₃(aq)"
+      ],
+      "seed": 2
+    }
+  },
+  {
+    "id": 3,
+    "source_id": "BF2-003",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou H2SO4(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-003",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou H2SO4(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "H₂SO₄(aq)"
+      ],
+      "seed": 3
+    }
+  },
+  {
+    "id": 4,
+    "source_id": "BF2-004",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou H3PO4(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-004",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou H3PO4(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "H₃PO₄(aq)"
+      ],
+      "seed": 4
+    }
+  },
+  {
+    "id": 5,
+    "source_id": "BF2-005",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou H2CO3(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-005",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou H2CO3(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "H₂CO₃(aq)"
+      ],
+      "seed": 5
+    }
+  },
+  {
+    "id": 6,
+    "source_id": "BF2-006",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou NaOH(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-006",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou NaOH(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "NaOH(aq)"
+      ],
+      "seed": 6
+    }
+  },
+  {
+    "id": 7,
+    "source_id": "BF2-007",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou KOH(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-007",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou KOH(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "KOH(aq)"
+      ],
+      "seed": 7
+    }
+  },
+  {
+    "id": 8,
+    "source_id": "BF2-008",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou Ca(OH)2(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-008",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou Ca(OH)2(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "Ca(OH)₂(aq)"
+      ],
+      "seed": 8
+    }
+  },
+  {
+    "id": 9,
+    "source_id": "BF2-009",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou Ba(OH)2(aq). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-009",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou Ba(OH)2(aq). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "Ba(OH)₂(aq)"
+      ],
+      "seed": 9
+    }
+  },
+  {
+    "id": 10,
+    "source_id": "BF2-010",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou Mg(OH)2(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-010",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou Mg(OH)2(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "Mg(OH)₂(s)"
+      ],
+      "seed": 10
+    }
+  },
+  {
+    "id": 11,
+    "source_id": "BF2-011",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou NaCl(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-011",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou NaCl(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "NaCl(s)"
+      ],
+      "seed": 11
+    }
+  },
+  {
+    "id": 12,
+    "source_id": "BF2-012",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou KNO3(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-012",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou KNO3(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "KNO₃(s)"
+      ],
+      "seed": 12
+    }
+  },
+  {
+    "id": 13,
+    "source_id": "BF2-013",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou CaCO3(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-013",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou CaCO3(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "CaCO₃(s)"
+      ],
+      "seed": 13
+    }
+  },
+  {
+    "id": 14,
+    "source_id": "BF2-014",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou Na2SO4(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-014",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou Na2SO4(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "Na₂SO₄(s)"
+      ],
+      "seed": 14
+    }
+  },
+  {
+    "id": 15,
+    "source_id": "BF2-015",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou NaHCO3(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-015",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou NaHCO3(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "NaHCO₃(s)"
+      ],
+      "seed": 15
+    }
+  },
+  {
+    "id": 16,
+    "source_id": "BF2-016",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou CO2(g). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-016",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou CO2(g). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "CO₂(g)"
+      ],
+      "seed": 16
+    }
+  },
+  {
+    "id": 17,
+    "source_id": "BF2-017",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou CaO(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-017",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou CaO(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "CaO(s)"
+      ],
+      "seed": 17
+    }
+  },
+  {
+    "id": 18,
+    "source_id": "BF2-018",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou Fe2O3(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-018",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou Fe2O3(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "Fe₂O₃(s)"
+      ],
+      "seed": 18
+    }
+  },
+  {
+    "id": 19,
+    "source_id": "BF2-019",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou CuO(s). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-019",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou CuO(s). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "CuO(s)"
+      ],
+      "seed": 19
+    }
+  },
+  {
+    "id": 20,
+    "source_id": "BF2-020",
+    "title": "Identificação de funções",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "Um sensor do portal identificou SO2(g). A qual função inorgânica essa substância pertence?",
+    "hologram": {
+      "id": "BF2-020",
+      "kind": "scan",
+      "caption": "Um sensor do portal identificou SO2(g). A qual função inorgânica essa substância pertence?",
+      "labels": [
+        "Um",
+        "SO₂(g)"
+      ],
+      "seed": 20
+    }
+  },
+  {
+    "id": 21,
+    "source_id": "BF2-021",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula HCl(aq). Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-021",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula HCl(aq). Qual é o nome adequado para essa substância?",
+      "labels": [
+        "HCl(aq)",
+        "Qu"
+      ],
+      "seed": 21
+    }
+  },
+  {
+    "id": 22,
+    "source_id": "BF2-022",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula HNO3. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-022",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula HNO3. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "HNO₃",
+        "Qu"
+      ],
+      "seed": 22
+    }
+  },
+  {
+    "id": 23,
+    "source_id": "BF2-023",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula H2SO4. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-023",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula H2SO4. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "H₂SO₄",
+        "Qu"
+      ],
+      "seed": 23
+    }
+  },
+  {
+    "id": 24,
+    "source_id": "BF2-024",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula H3PO4. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-024",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula H3PO4. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "H₃PO₄",
+        "Qu"
+      ],
+      "seed": 24
+    }
+  },
+  {
+    "id": 25,
+    "source_id": "BF2-025",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula H2CO3. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-025",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula H2CO3. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "H₂CO₃",
+        "Qu"
+      ],
+      "seed": 25
+    }
+  },
+  {
+    "id": 26,
+    "source_id": "BF2-026",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula NaOH. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-026",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula NaOH. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "NaOH",
+        "Qu"
+      ],
+      "seed": 26
+    }
+  },
+  {
+    "id": 27,
+    "source_id": "BF2-027",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula KOH. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-027",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula KOH. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "KOH",
+        "Qu"
+      ],
+      "seed": 27
+    }
+  },
+  {
+    "id": 28,
+    "source_id": "BF2-028",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula Ca(OH)2. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-028",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula Ca(OH)2. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "Ca(OH)₂",
+        "Qu"
+      ],
+      "seed": 28
+    }
+  },
+  {
+    "id": 29,
+    "source_id": "BF2-029",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula Mg(OH)2. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-029",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula Mg(OH)2. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "Mg(OH)₂",
+        "Qu"
+      ],
+      "seed": 29
+    }
+  },
+  {
+    "id": 30,
+    "source_id": "BF2-030",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula Ba(OH)2. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-030",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula Ba(OH)2. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "Ba(OH)₂",
+        "Qu"
+      ],
+      "seed": 30
+    }
+  },
+  {
+    "id": 31,
+    "source_id": "BF2-031",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula NaCl. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-031",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula NaCl. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "NaCl",
+        "Qu"
+      ],
+      "seed": 31
+    }
+  },
+  {
+    "id": 32,
+    "source_id": "BF2-032",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula KNO3. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-032",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula KNO3. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "KNO₃",
+        "Qu"
+      ],
+      "seed": 32
+    }
+  },
+  {
+    "id": 33,
+    "source_id": "BF2-033",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula CaCO3. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-033",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula CaCO3. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "CaCO₃",
+        "Qu"
+      ],
+      "seed": 33
+    }
+  },
+  {
+    "id": 34,
+    "source_id": "BF2-034",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula Na2SO4. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-034",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula Na2SO4. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "Na₂SO₄",
+        "Qu"
+      ],
+      "seed": 34
+    }
+  },
+  {
+    "id": 35,
+    "source_id": "BF2-035",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula NaHCO3. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-035",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula NaHCO3. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "NaHCO₃",
+        "Qu"
+      ],
+      "seed": 35
+    }
+  },
+  {
+    "id": 36,
+    "source_id": "BF2-036",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula CO2. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-036",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula CO2. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "CO₂",
+        "Qu"
+      ],
+      "seed": 36
+    }
+  },
+  {
+    "id": 37,
+    "source_id": "BF2-037",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula CO. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-037",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula CO. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "CO",
+        "Qu"
+      ],
+      "seed": 37
+    }
+  },
+  {
+    "id": 38,
+    "source_id": "BF2-038",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula CaO. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-038",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula CaO. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "CaO",
+        "Qu"
+      ],
+      "seed": 38
+    }
+  },
+  {
+    "id": 39,
+    "source_id": "BF2-039",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula CuO. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-039",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula CuO. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "CuO",
+        "Qu"
+      ],
+      "seed": 39
+    }
+  },
+  {
+    "id": 40,
+    "source_id": "BF2-040",
+    "title": "Nomenclatura",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "O terminal exibe a fórmula Fe2O3. Qual é o nome adequado para essa substância?",
+    "hologram": {
+      "id": "BF2-040",
+      "kind": "single",
+      "caption": "O terminal exibe a fórmula Fe2O3. Qual é o nome adequado para essa substância?",
+      "labels": [
+        "Fe₂O₃",
+        "Qu"
+      ],
+      "seed": 40
+    }
+  },
+  {
+    "id": 41,
+    "source_id": "BF2-041",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual função inorgânica inclui o hidróxido de sódio?",
+    "hologram": {
+      "id": "BF2-041",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual função inorgânica inclui o hidróxido de sódio?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 41
+    }
+  },
+  {
+    "id": 42,
+    "source_id": "BF2-042",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual função inclui o carbonato de cálcio?",
+    "hologram": {
+      "id": "BF2-042",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual função inclui o carbonato de cálcio?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 42
+    }
+  },
+  {
+    "id": 43,
+    "source_id": "BF2-043",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual função inclui o dióxido de enxofre?",
+    "hologram": {
+      "id": "BF2-043",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual função inclui o dióxido de enxofre?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 43
+    }
+  },
+  {
+    "id": 44,
+    "source_id": "BF2-044",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual função inclui o ácido fosfórico?",
+    "hologram": {
+      "id": "BF2-044",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual função inclui o ácido fosfórico?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 44
+    }
+  },
+  {
+    "id": 45,
+    "source_id": "BF2-045",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual substância é conhecida como sal de cozinha?",
+    "hologram": {
+      "id": "BF2-045",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual substância é conhecida como sal de cozinha?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 45
+    }
+  },
+  {
+    "id": 46,
+    "source_id": "BF2-046",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual fórmula representa a cal virgem?",
+    "hologram": {
+      "id": "BF2-046",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual fórmula representa a cal virgem?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 46
+    }
+  },
+  {
+    "id": 47,
+    "source_id": "BF2-047",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual fórmula representa a cal hidratada?",
+    "hologram": {
+      "id": "BF2-047",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual fórmula representa a cal hidratada?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 47
+    }
+  },
+  {
+    "id": 48,
+    "source_id": "BF2-048",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual substância é o principal componente do mármore?",
+    "hologram": {
+      "id": "BF2-048",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual substância é o principal componente do mármore?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 48
+    }
+  },
+  {
+    "id": 49,
+    "source_id": "BF2-049",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual gás forma bolhas na reação de carbonato com ácido?",
+    "hologram": {
+      "id": "BF2-049",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual gás forma bolhas na reação de carbonato com ácido?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 49
+    }
+  },
+  {
+    "id": 50,
+    "source_id": "BF2-050",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual substância é um óxido presente na respiração?",
+    "hologram": {
+      "id": "BF2-050",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual substância é um óxido presente na respiração?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 50
+    }
+  },
+  {
+    "id": 51,
+    "source_id": "BF2-051",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Em condições usuais, uma solução aquosa com pH 3 é classificada como:",
+    "hologram": {
+      "id": "BF2-051",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Em condições usuais, uma solução aquosa com pH 3 é classificada como:",
+      "labels": [
+        "pH 3"
+      ],
+      "seed": 51
+    }
+  },
+  {
+    "id": 52,
+    "source_id": "BF2-052",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Em condições usuais, uma solução aquosa com pH 11 é classificada como:",
+    "hologram": {
+      "id": "BF2-052",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Em condições usuais, uma solução aquosa com pH 11 é classificada como:",
+      "labels": [
+        "pH 11"
+      ],
+      "seed": 52
+    }
+  },
+  {
+    "id": 53,
+    "source_id": "BF2-053",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: A 25 °C, o pH aproximado da água pura é:",
+    "hologram": {
+      "id": "BF2-053",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: A 25 °C, o pH aproximado da água pura é:",
+      "labels": [
+        "Amostra em investigação"
+      ],
+      "seed": 53
+    }
+  },
+  {
+    "id": 54,
+    "source_id": "BF2-054",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual material é usado para estimar a acidez por mudança de cor?",
+    "hologram": {
+      "id": "BF2-054",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual material é usado para estimar a acidez por mudança de cor?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 54
+    }
+  },
+  {
+    "id": 55,
+    "source_id": "BF2-055",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual cor a fenolftaleína apresenta em meio ácido?",
+    "hologram": {
+      "id": "BF2-055",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual cor a fenolftaleína apresenta em meio ácido?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 55
+    }
+  },
+  {
+    "id": 56,
+    "source_id": "BF2-056",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual cor a fenolftaleína pode apresentar em meio suficientemente básico?",
+    "hologram": {
+      "id": "BF2-056",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual cor a fenolftaleína pode apresentar em meio suficientemente básico?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 56
+    }
+  },
+  {
+    "id": 57,
+    "source_id": "BF2-057",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: O nome da reação entre um ácido e uma base, em contexto escolar, é:",
+    "hologram": {
+      "id": "BF2-057",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: O nome da reação entre um ácido e uma base, em contexto escolar, é:",
+      "labels": [
+        "Amostra em investigação"
+      ],
+      "seed": 57
+    }
+  },
+  {
+    "id": 58,
+    "source_id": "BF2-058",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual composto é conhecido como bicarbonato de sódio?",
+    "hologram": {
+      "id": "BF2-058",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual composto é conhecido como bicarbonato de sódio?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 58
+    }
+  },
+  {
+    "id": 59,
+    "source_id": "BF2-059",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual óxido pode reagir com água para formar ácido carbônico?",
+    "hologram": {
+      "id": "BF2-059",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual óxido pode reagir com água para formar ácido carbônico?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 59
+    }
+  },
+  {
+    "id": 60,
+    "source_id": "BF2-060",
+    "title": "Conceitos e cotidiano",
+    "environment_index": 0,
+    "level": "Fácil",
+    "stem": "No painel de segurança do portal: Qual óxido reage com água formando hidróxido de cálcio?",
+    "hologram": {
+      "id": "BF2-060",
+      "kind": "scan",
+      "caption": "No painel de segurança do portal: Qual óxido reage com água formando hidróxido de cálcio?",
+      "labels": [
+        "Qu"
+      ],
+      "seed": 60
+    }
+  },
+  {
+    "id": 61,
+    "source_id": "BF2-061",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-061",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "cloreto de sódio"
+      ],
+      "seed": 61
+    }
+  },
+  {
+    "id": 62,
+    "source_id": "BF2-062",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-062",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "cloreto de potássio"
+      ],
+      "seed": 62
+    }
+  },
+  {
+    "id": 63,
+    "source_id": "BF2-063",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como nitrato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-063",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como nitrato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "nitrato de sódio"
+      ],
+      "seed": 63
+    }
+  },
+  {
+    "id": 64,
+    "source_id": "BF2-064",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como nitrato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-064",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como nitrato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "nitrato de potássio"
+      ],
+      "seed": 64
+    }
+  },
+  {
+    "id": 65,
+    "source_id": "BF2-065",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como nitrato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-065",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como nitrato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "nitrato de cálcio"
+      ],
+      "seed": 65
+    }
+  },
+  {
+    "id": 66,
+    "source_id": "BF2-066",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de magnésio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-066",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de magnésio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "cloreto de magnésio"
+      ],
+      "seed": 66
+    }
+  },
+  {
+    "id": 67,
+    "source_id": "BF2-067",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-067",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "cloreto de cálcio"
+      ],
+      "seed": 67
+    }
+  },
+  {
+    "id": 68,
+    "source_id": "BF2-068",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de bário. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-068",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como cloreto de bário. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "cloreto de bário"
+      ],
+      "seed": 68
+    }
+  },
+  {
+    "id": 69,
+    "source_id": "BF2-069",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-069",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "sulfato de sódio"
+      ],
+      "seed": 69
+    }
+  },
+  {
+    "id": 70,
+    "source_id": "BF2-070",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-070",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "sulfato de potássio"
+      ],
+      "seed": 70
+    }
+  },
+  {
+    "id": 71,
+    "source_id": "BF2-071",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-071",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "sulfato de cálcio"
+      ],
+      "seed": 71
+    }
+  },
+  {
+    "id": 72,
+    "source_id": "BF2-072",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de magnésio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-072",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de magnésio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "sulfato de magnésio"
+      ],
+      "seed": 72
+    }
+  },
+  {
+    "id": 73,
+    "source_id": "BF2-073",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de bário. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-073",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como sulfato de bário. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "sulfato de bário"
+      ],
+      "seed": 73
+    }
+  },
+  {
+    "id": 74,
+    "source_id": "BF2-074",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como fosfato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-074",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como fosfato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "fosfato de sódio"
+      ],
+      "seed": 74
+    }
+  },
+  {
+    "id": 75,
+    "source_id": "BF2-075",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como fosfato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-075",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como fosfato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "fosfato de potássio"
+      ],
+      "seed": 75
+    }
+  },
+  {
+    "id": 76,
+    "source_id": "BF2-076",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como fosfato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-076",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como fosfato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "fosfato de cálcio"
+      ],
+      "seed": 76
+    }
+  },
+  {
+    "id": 77,
+    "source_id": "BF2-077",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-077",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de sódio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "carbonato de sódio"
+      ],
+      "seed": 77
+    }
+  },
+  {
+    "id": 78,
+    "source_id": "BF2-078",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-078",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de potássio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "carbonato de potássio"
+      ],
+      "seed": 78
+    }
+  },
+  {
+    "id": 79,
+    "source_id": "BF2-079",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-079",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de cálcio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "carbonato de cálcio"
+      ],
+      "seed": 79
+    }
+  },
+  {
+    "id": 80,
+    "source_id": "BF2-080",
+    "title": "Sais e cristalização",
+    "environment_index": 1,
+    "level": "Média",
+    "stem": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de magnésio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+    "hologram": {
+      "id": "BF2-080",
+      "kind": "crystal",
+      "caption": "Na Câmara dos Cristais, uma amostra é rotulada como carbonato de magnésio. Qual fórmula deve ser registrada para identificar corretamente o sal?",
+      "labels": [
+        "carbonato de magnésio"
+      ],
+      "seed": 80
+    }
+  },
+  {
+    "id": 81,
+    "source_id": "BF2-081",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 1. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-081",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 1. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 1"
+      ],
+      "seed": 81
+    }
+  },
+  {
+    "id": 82,
+    "source_id": "BF2-082",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 2. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-082",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 2. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 2"
+      ],
+      "seed": 82
+    }
+  },
+  {
+    "id": 83,
+    "source_id": "BF2-083",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 3. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-083",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 3. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 3"
+      ],
+      "seed": 83
+    }
+  },
+  {
+    "id": 84,
+    "source_id": "BF2-084",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 4. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-084",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 4. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 4"
+      ],
+      "seed": 84
+    }
+  },
+  {
+    "id": 85,
+    "source_id": "BF2-085",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 5. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-085",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 5. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 5"
+      ],
+      "seed": 85
+    }
+  },
+  {
+    "id": 86,
+    "source_id": "BF2-086",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 6. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-086",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 6. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 6"
+      ],
+      "seed": 86
+    }
+  },
+  {
+    "id": 87,
+    "source_id": "BF2-087",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 8. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-087",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 8. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 8"
+      ],
+      "seed": 87
+    }
+  },
+  {
+    "id": 88,
+    "source_id": "BF2-088",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 9. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-088",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 9. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 9"
+      ],
+      "seed": 88
+    }
+  },
+  {
+    "id": 89,
+    "source_id": "BF2-089",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 10. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-089",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 10. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 10"
+      ],
+      "seed": 89
+    }
+  },
+  {
+    "id": 90,
+    "source_id": "BF2-090",
+    "title": "Interpretação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "Uma amostra aquosa a 25 °C apresenta pH 11. Qual conclusão é compatível com a leitura?",
+    "hologram": {
+      "id": "BF2-090",
+      "kind": "meter",
+      "caption": "Uma amostra aquosa a 25 °C apresenta pH 11. Qual conclusão é compatível com a leitura?",
+      "labels": [
+        "pH 11"
+      ],
+      "seed": 90
+    }
+  },
+  {
+    "id": 91,
+    "source_id": "BF2-091",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 2 antes e pH 3 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-091",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 2 antes e pH 3 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 2",
+        "pH 3"
+      ],
+      "seed": 91
+    }
+  },
+  {
+    "id": 92,
+    "source_id": "BF2-092",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 3 antes e pH 5 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-092",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 3 antes e pH 5 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 3",
+        "pH 5"
+      ],
+      "seed": 92
+    }
+  },
+  {
+    "id": 93,
+    "source_id": "BF2-093",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 4 antes e pH 6 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-093",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 4 antes e pH 6 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 4",
+        "pH 6"
+      ],
+      "seed": 93
+    }
+  },
+  {
+    "id": 94,
+    "source_id": "BF2-094",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 6 antes e pH 4 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-094",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 6 antes e pH 4 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 6",
+        "pH 4"
+      ],
+      "seed": 94
+    }
+  },
+  {
+    "id": 95,
+    "source_id": "BF2-095",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 8 antes e pH 10 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-095",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 8 antes e pH 10 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 8",
+        "pH 10"
+      ],
+      "seed": 95
+    }
+  },
+  {
+    "id": 96,
+    "source_id": "BF2-096",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 9 antes e pH 11 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-096",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 9 antes e pH 11 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 9",
+        "pH 11"
+      ],
+      "seed": 96
+    }
+  },
+  {
+    "id": 97,
+    "source_id": "BF2-097",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 12 antes e pH 10 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-097",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 12 antes e pH 10 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 12",
+        "pH 10"
+      ],
+      "seed": 97
+    }
+  },
+  {
+    "id": 98,
+    "source_id": "BF2-098",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 11 antes e pH 9 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-098",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 11 antes e pH 9 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 11",
+        "pH 9"
+      ],
+      "seed": 98
+    }
+  },
+  {
+    "id": 99,
+    "source_id": "BF2-099",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 5 antes e pH 2 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-099",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 5 antes e pH 2 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 5",
+        "pH 2"
+      ],
+      "seed": 99
+    }
+  },
+  {
+    "id": 100,
+    "source_id": "BF2-100",
+    "title": "Comparação de pH",
+    "environment_index": 2,
+    "level": "Média",
+    "stem": "No Laboratório das Soluções, o medidor registrou pH 10 antes e pH 8 depois de um procedimento. Qual interpretação numérica está correta?",
+    "hologram": {
+      "id": "BF2-100",
+      "kind": "pair",
+      "caption": "No Laboratório das Soluções, o medidor registrou pH 10 antes e pH 8 depois de um procedimento. Qual interpretação numérica está correta?",
+      "labels": [
+        "pH 10",
+        "pH 8"
+      ],
+      "seed": 100
+    }
+  },
+  {
+    "id": 101,
+    "source_id": "BF2-101",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-101",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HCl(aq)",
+        "NaOH"
+      ],
+      "seed": 101
+    }
+  },
+  {
+    "id": 102,
+    "source_id": "BF2-102",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-102",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HCl(aq)",
+        "KOH"
+      ],
+      "seed": 102
+    }
+  },
+  {
+    "id": 103,
+    "source_id": "BF2-103",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HNO3(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-103",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HNO3(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HNO₃(aq)",
+        "NaOH"
+      ],
+      "seed": 103
+    }
+  },
+  {
+    "id": 104,
+    "source_id": "BF2-104",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HNO3(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-104",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HNO3(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HNO₃(aq)",
+        "KOH"
+      ],
+      "seed": 104
+    }
+  },
+  {
+    "id": 105,
+    "source_id": "BF2-105",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HNO3(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-105",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HNO3(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HNO₃(aq)",
+        "Ca(OH)₂"
+      ],
+      "seed": 105
+    }
+  },
+  {
+    "id": 106,
+    "source_id": "BF2-106",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e Mg(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-106",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e Mg(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HCl(aq)",
+        "Mg(OH)₂"
+      ],
+      "seed": 106
+    }
+  },
+  {
+    "id": 107,
+    "source_id": "BF2-107",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-107",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HCl(aq)",
+        "Ca(OH)₂"
+      ],
+      "seed": 107
+    }
+  },
+  {
+    "id": 108,
+    "source_id": "BF2-108",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e Ba(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-108",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre HCl(aq) e Ba(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "HCl(aq)",
+        "Ba(OH)₂"
+      ],
+      "seed": 108
+    }
+  },
+  {
+    "id": 109,
+    "source_id": "BF2-109",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-109",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂SO₄(aq)",
+        "NaOH"
+      ],
+      "seed": 109
+    }
+  },
+  {
+    "id": 110,
+    "source_id": "BF2-110",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-110",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂SO₄(aq)",
+        "KOH"
+      ],
+      "seed": 110
+    }
+  },
+  {
+    "id": 111,
+    "source_id": "BF2-111",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-111",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂SO₄(aq)",
+        "Ca(OH)₂"
+      ],
+      "seed": 111
+    }
+  },
+  {
+    "id": 112,
+    "source_id": "BF2-112",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e Mg(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-112",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e Mg(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂SO₄(aq)",
+        "Mg(OH)₂"
+      ],
+      "seed": 112
+    }
+  },
+  {
+    "id": 113,
+    "source_id": "BF2-113",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e Ba(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-113",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2SO4(aq) e Ba(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂SO₄(aq)",
+        "Ba(OH)₂"
+      ],
+      "seed": 113
+    }
+  },
+  {
+    "id": 114,
+    "source_id": "BF2-114",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H3PO4(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-114",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H3PO4(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₃PO₄(aq)",
+        "NaOH"
+      ],
+      "seed": 114
+    }
+  },
+  {
+    "id": 115,
+    "source_id": "BF2-115",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H3PO4(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-115",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H3PO4(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₃PO₄(aq)",
+        "KOH"
+      ],
+      "seed": 115
+    }
+  },
+  {
+    "id": 116,
+    "source_id": "BF2-116",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H3PO4(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-116",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H3PO4(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₃PO₄(aq)",
+        "Ca(OH)₂"
+      ],
+      "seed": 116
+    }
+  },
+  {
+    "id": 117,
+    "source_id": "BF2-117",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-117",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e NaOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂CO₃(aq)",
+        "NaOH"
+      ],
+      "seed": 117
+    }
+  },
+  {
+    "id": 118,
+    "source_id": "BF2-118",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-118",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e KOH (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂CO₃(aq)",
+        "KOH"
+      ],
+      "seed": 118
+    }
+  },
+  {
+    "id": 119,
+    "source_id": "BF2-119",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-119",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e Ca(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂CO₃(aq)",
+        "Ca(OH)₂"
+      ],
+      "seed": 119
+    }
+  },
+  {
+    "id": 120,
+    "source_id": "BF2-120",
+    "title": "Neutralização e produtos",
+    "environment_index": 3,
+    "level": "Média",
+    "stem": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e Mg(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+    "hologram": {
+      "id": "BF2-120",
+      "kind": "pair",
+      "caption": "No Reator, uma reação de neutralização completa ocorre entre H2CO3(aq) e Mg(OH)2 (com proporções estequiométricas adequadas). Qual fórmula representa o sal formado?",
+      "labels": [
+        "Re",
+        "H₂CO₃(aq)",
+        "Mg(OH)₂"
+      ],
+      "seed": 120
+    }
+  },
+  {
+    "id": 121,
+    "source_id": "BF2-121",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 2 e pH 3, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-121",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 2 e pH 3, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 2",
+        "pH 3"
+      ],
+      "seed": 121
+    }
+  },
+  {
+    "id": 122,
+    "source_id": "BF2-122",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 2 e pH 4, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-122",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 2 e pH 4, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 2",
+        "pH 4"
+      ],
+      "seed": 122
+    }
+  },
+  {
+    "id": 123,
+    "source_id": "BF2-123",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 2 e pH 5, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-123",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 2 e pH 5, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 2",
+        "pH 5"
+      ],
+      "seed": 123
+    }
+  },
+  {
+    "id": 124,
+    "source_id": "BF2-124",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 3 e pH 4, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-124",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 3 e pH 4, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 3",
+        "pH 4"
+      ],
+      "seed": 124
+    }
+  },
+  {
+    "id": 125,
+    "source_id": "BF2-125",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 3 e pH 5, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-125",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 3 e pH 5, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 3",
+        "pH 5"
+      ],
+      "seed": 125
+    }
+  },
+  {
+    "id": 126,
+    "source_id": "BF2-126",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 3 e pH 6, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-126",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 3 e pH 6, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 3",
+        "pH 6"
+      ],
+      "seed": 126
+    }
+  },
+  {
+    "id": 127,
+    "source_id": "BF2-127",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 4 e pH 5, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-127",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 4 e pH 5, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 4",
+        "pH 5"
+      ],
+      "seed": 127
+    }
+  },
+  {
+    "id": 128,
+    "source_id": "BF2-128",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 4 e pH 6, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-128",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 4 e pH 6, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 4",
+        "pH 6"
+      ],
+      "seed": 128
+    }
+  },
+  {
+    "id": 129,
+    "source_id": "BF2-129",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 4 e pH 7, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-129",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 4 e pH 7, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 4",
+        "pH 7"
+      ],
+      "seed": 129
+    }
+  },
+  {
+    "id": 130,
+    "source_id": "BF2-130",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 5 e pH 6, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-130",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 5 e pH 6, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 5",
+        "pH 6"
+      ],
+      "seed": 130
+    }
+  },
+  {
+    "id": 131,
+    "source_id": "BF2-131",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 5 e pH 7, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-131",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 5 e pH 7, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 5",
+        "pH 7"
+      ],
+      "seed": 131
+    }
+  },
+  {
+    "id": 132,
+    "source_id": "BF2-132",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 6 e pH 7, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-132",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 6 e pH 7, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 6",
+        "pH 7"
+      ],
+      "seed": 132
+    }
+  },
+  {
+    "id": 133,
+    "source_id": "BF2-133",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 8 e pH 9, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-133",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 8 e pH 9, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 8",
+        "pH 9"
+      ],
+      "seed": 133
+    }
+  },
+  {
+    "id": 134,
+    "source_id": "BF2-134",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 8 e pH 10, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-134",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 8 e pH 10, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 8",
+        "pH 10"
+      ],
+      "seed": 134
+    }
+  },
+  {
+    "id": 135,
+    "source_id": "BF2-135",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 9 e pH 10, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-135",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 9 e pH 10, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 9",
+        "pH 10"
+      ],
+      "seed": 135
+    }
+  },
+  {
+    "id": 136,
+    "source_id": "BF2-136",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 9 e pH 11, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-136",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 9 e pH 11, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 9",
+        "pH 11"
+      ],
+      "seed": 136
+    }
+  },
+  {
+    "id": 137,
+    "source_id": "BF2-137",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 10 e pH 11, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-137",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 10 e pH 11, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 10",
+        "pH 11"
+      ],
+      "seed": 137
+    }
+  },
+  {
+    "id": 138,
+    "source_id": "BF2-138",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 10 e pH 12, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-138",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 10 e pH 12, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 10",
+        "pH 12"
+      ],
+      "seed": 138
+    }
+  },
+  {
+    "id": 139,
+    "source_id": "BF2-139",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 11 e pH 12, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-139",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 11 e pH 12, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 11",
+        "pH 12"
+      ],
+      "seed": 139
+    }
+  },
+  {
+    "id": 140,
+    "source_id": "BF2-140",
+    "title": "Escala logarítmica do pH",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "Dois sensores do Núcleo registram pH 12 e pH 13, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+    "hologram": {
+      "id": "BF2-140",
+      "kind": "pair",
+      "caption": "Dois sensores do Núcleo registram pH 12 e pH 13, na mesma temperatura. Considerando a definição de pH e atividades químicas, qual comparação está correta?",
+      "labels": [
+        "pH 12",
+        "pH 13"
+      ],
+      "seed": 140
+    }
+  },
+  {
+    "id": 141,
+    "source_id": "BF2-141",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HCl com NaOH, formando NaCl e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-141",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HCl com NaOH, formando NaCl e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HCl",
+        "NaOH",
+        "NaCl"
+      ],
+      "seed": 141
+    }
+  },
+  {
+    "id": 142,
+    "source_id": "BF2-142",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HCl com KOH, formando KCl e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-142",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HCl com KOH, formando KCl e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HCl",
+        "KOH",
+        "KCl"
+      ],
+      "seed": 142
+    }
+  },
+  {
+    "id": 143,
+    "source_id": "BF2-143",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HNO3 com NaOH, formando NaNO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-143",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HNO3 com NaOH, formando NaNO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HNO₃",
+        "NaOH",
+        "NaNO₃"
+      ],
+      "seed": 143
+    }
+  },
+  {
+    "id": 144,
+    "source_id": "BF2-144",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HNO3 com KOH, formando KNO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-144",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HNO3 com KOH, formando KNO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HNO₃",
+        "KOH",
+        "KNO₃"
+      ],
+      "seed": 144
+    }
+  },
+  {
+    "id": 145,
+    "source_id": "BF2-145",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HCl com Ca(OH)2, formando CaCl2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-145",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HCl com Ca(OH)2, formando CaCl2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HCl",
+        "Ca(OH)₂",
+        "CaCl₂"
+      ],
+      "seed": 145
+    }
+  },
+  {
+    "id": 146,
+    "source_id": "BF2-146",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HCl com Mg(OH)2, formando MgCl2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-146",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HCl com Mg(OH)2, formando MgCl2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HCl",
+        "Mg(OH)₂",
+        "MgCl₂"
+      ],
+      "seed": 146
+    }
+  },
+  {
+    "id": 147,
+    "source_id": "BF2-147",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HCl com Ba(OH)2, formando BaCl2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-147",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HCl com Ba(OH)2, formando BaCl2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HCl",
+        "Ba(OH)₂",
+        "BaCl₂"
+      ],
+      "seed": 147
+    }
+  },
+  {
+    "id": 148,
+    "source_id": "BF2-148",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HNO3 com Ca(OH)2, formando Ca(NO3)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-148",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HNO3 com Ca(OH)2, formando Ca(NO3)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HNO₃",
+        "Ca(OH)₂",
+        "Ca(NO₃)₂"
+      ],
+      "seed": 148
+    }
+  },
+  {
+    "id": 149,
+    "source_id": "BF2-149",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HNO3 com Mg(OH)2, formando Mg(NO3)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-149",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HNO3 com Mg(OH)2, formando Mg(NO3)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HNO₃",
+        "Mg(OH)₂",
+        "Mg(NO₃)₂"
+      ],
+      "seed": 149
+    }
+  },
+  {
+    "id": 150,
+    "source_id": "BF2-150",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de HNO3 com Ba(OH)2, formando Ba(NO3)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-150",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de HNO3 com Ba(OH)2, formando Ba(NO3)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "HNO₃",
+        "Ba(OH)₂",
+        "Ba(NO₃)₂"
+      ],
+      "seed": 150
+    }
+  },
+  {
+    "id": 151,
+    "source_id": "BF2-151",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2SO4 com NaOH, formando Na2SO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-151",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2SO4 com NaOH, formando Na2SO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂SO₄",
+        "NaOH",
+        "Na₂SO₄"
+      ],
+      "seed": 151
+    }
+  },
+  {
+    "id": 152,
+    "source_id": "BF2-152",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2SO4 com KOH, formando K2SO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-152",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2SO4 com KOH, formando K2SO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂SO₄",
+        "KOH",
+        "K₂SO₄"
+      ],
+      "seed": 152
+    }
+  },
+  {
+    "id": 153,
+    "source_id": "BF2-153",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2SO4 com Ca(OH)2, formando CaSO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-153",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2SO4 com Ca(OH)2, formando CaSO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂SO₄",
+        "Ca(OH)₂",
+        "CaSO₄"
+      ],
+      "seed": 153
+    }
+  },
+  {
+    "id": 154,
+    "source_id": "BF2-154",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2SO4 com Mg(OH)2, formando MgSO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-154",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2SO4 com Mg(OH)2, formando MgSO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂SO₄",
+        "Mg(OH)₂",
+        "MgSO₄"
+      ],
+      "seed": 154
+    }
+  },
+  {
+    "id": 155,
+    "source_id": "BF2-155",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2SO4 com Ba(OH)2, formando BaSO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-155",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2SO4 com Ba(OH)2, formando BaSO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂SO₄",
+        "Ba(OH)₂",
+        "BaSO₄"
+      ],
+      "seed": 155
+    }
+  },
+  {
+    "id": 156,
+    "source_id": "BF2-156",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H3PO4 com NaOH, formando Na3PO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-156",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H3PO4 com NaOH, formando Na3PO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₃PO₄",
+        "NaOH",
+        "Na₃PO₄"
+      ],
+      "seed": 156
+    }
+  },
+  {
+    "id": 157,
+    "source_id": "BF2-157",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H3PO4 com KOH, formando K3PO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-157",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H3PO4 com KOH, formando K3PO4 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₃PO₄",
+        "KOH",
+        "K₃PO₄"
+      ],
+      "seed": 157
+    }
+  },
+  {
+    "id": 158,
+    "source_id": "BF2-158",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H3PO4 com Ca(OH)2, formando Ca3(PO4)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-158",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H3PO4 com Ca(OH)2, formando Ca3(PO4)2 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₃PO₄",
+        "Ca(OH)₂",
+        "Ca₃(PO₄)₂"
+      ],
+      "seed": 158
+    }
+  },
+  {
+    "id": 159,
+    "source_id": "BF2-159",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2CO3 com NaOH, formando Na2CO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-159",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2CO3 com NaOH, formando Na2CO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂CO₃",
+        "NaOH",
+        "Na₂CO₃"
+      ],
+      "seed": 159
+    }
+  },
+  {
+    "id": 160,
+    "source_id": "BF2-160",
+    "title": "Estequiometria de neutralização",
+    "environment_index": 4,
+    "level": "Difícil",
+    "stem": "O Núcleo exige a neutralização completa de H2CO3 com Ca(OH)2, formando CaCO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+    "hologram": {
+      "id": "BF2-160",
+      "kind": "balance",
+      "caption": "O Núcleo exige a neutralização completa de H2CO3 com Ca(OH)2, formando CaCO3 e água, sem excesso de reagentes. Qual proporção estequiométrica entre ácido e base é correta?",
+      "labels": [
+        "H₂CO₃",
+        "Ca(OH)₂",
+        "CaCO₃"
+      ],
+      "seed": 160
+    }
+  }
+];
+const $=id=>document.getElementById(id),model=new DemoRound(questions);
+const names=['Portal dos Íons','Câmara dos Cristais','Laboratório das Soluções','Reator de Neutralização','Núcleo da Química'];
+let pendingRound=false;
+let active=false,typing=null,hintAbort=null,generation=0,audio=null,transitionEnd=0,finishing=false;
+$('reduced').checked=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function state(position,phase='question',start=Date.now()){audioSystem.environment(Math.floor(position/3));window.dispatchEvent(new CustomEvent('chem:room-state',{detail:{experience:'battle2',phase,position,started_at:new Date(start).toISOString(),server_now:new Date().toISOString()}}));}
+const audioSystem=new GameAudio();
+function sound(ok){audioSystem.effect(ok?'correct':'wrong');}
+
+async function fullscreen(){try{await document.documentElement.requestFullscreen?.();try{await screen.orientation?.lock?.('landscape');}catch{}}catch{$('notice').textContent='Tela cheia indisponível: a demonstração ocupa a janela do navegador.';}}
+function reveal(){clearInterval(typing);$('stem').textContent=questions[model.index]?.stem||'';$('stem').classList.remove('cursor');}
+$('stem').onclick=reveal;$('stem').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();reveal();}};
+function updateResponseProgress(confirmed=false){const p=responseProgress([{id:"local-player",role:"player",active:true,eliminated:false}],confirmed?["local-player"]:[]);$("response-count").textContent=`${p.answered} de ${p.total} respondeu`;$("response-bar").max=Math.max(1,p.total);$("response-bar").value=p.answered;}
+function startRound(){audioSystem.stopSpeech();updateResponseProgress(false);hintAbort?.abort();generation++;const q=model.start();if(!q)return;active=true;$('mission').classList.remove('minimized');$('minimize').textContent='Explorar';$('minimize').setAttribute('aria-expanded','true');$('hintbox').hidden=true;$('hint').disabled=model.hints===0;$('next').hidden=true;$('status').textContent='';$('title').textContent=q.title.toUpperCase();$('progress').textContent=`Missão ${model.index+1}/15 · ${q.level}`;$('hint').textContent=`💡 ${model.hints}`;$('readable').textContent=q.stem;
+ $('opts').replaceChildren();q.opts.forEach((text,i)=>{const b=document.createElement('button');const letter=document.createElement('strong');letter.textContent='ABCDE'[i];b.append(letter,document.createTextNode(text));b.onclick=()=>answer(i);$('opts').append(b);});
+ document.querySelector('.scene-name').textContent=names[Math.floor(model.index/3)];showHologram(q);state(model.index);reveal();if(!$('reduced').checked){let n=0;$('stem').textContent='';$('stem').classList.add('cursor');const chars=Array.from(q.stem);typing=setInterval(()=>{n+=Math.max(1,Math.ceil(chars.length/30));$('stem').textContent=chars.slice(0,n).join('');if(n>=chars.length)reveal();},25);}
+ if($('auto-voice').checked)audioSystem.speak(q);syncClock();
+}
+function feedback(text,ok){$('status').textContent=text;const panel=$('mission');panel.classList.remove('success','error','shake');panel.classList.add(ok?'success':'error');if(!ok&&!$('reduced').checked&&$('shake').checked)panel.classList.add('shake');sound(ok);setTimeout(()=>panel.classList.remove('success','error','shake'),600);}
+function lock(){reveal();[...$('opts').children].forEach(b=>b.disabled=true);$('hint').disabled=true;$('next').hidden=true;$('score').textContent=`${model.score} pts · ${errorCount(model.answers)}/11 erros`;}
+function answer(i){if(!active)return;const result=model.answer(i);if(!result){syncClock();return;}lock();updateResponseProgress(true);feedback(result.correct?'ACERTO CONFIRMADO':'PERIGO — RESPOSTA INCORRETA',result.correct);if(!result.correct){const count=errorCount(model.answers);window.dispatchEvent(new CustomEvent('chem:local-error',{detail:{count,reduced:$('reduced').checked}}));if(count===5)$('status').textContent='⚠ CINCO FALHAS — ATENÇÃO À ESTABILIDADE DO SISTEMA';}if(model.eliminated){finish();return;}const answeredIndex=model.index;setTimeout(()=>{if(active&&model.index===answeredIndex)advance();},1800);}
+function finish(){active=false;pendingRound=false;hintAbort?.abort();clearInterval(typing);$('hintbox').hidden=true;$('hint').disabled=true;$('mission').hidden=true;$('projection').hidden=true;$('clock').textContent='—';
+ const ranking=rankPlayers([{id:'local-player',nickname:$('nickname').value.trim()||'Você',role:'player',score:model.score,correct_count:model.answers.filter(a=>a.correct).length,elapsed_ms:0,eliminated:model.eliminated}]);if(model.eliminated){$('progress').textContent='LIMITE DE 11 ERROS — ELIMINADO';sound(false);window.dispatchEvent(new CustomEvent('chem:local-eliminated',{detail:{reduced:$('reduced').checked}}));setTimeout(()=>presentResult(ranking[0],ranking),$('reduced').checked?1000:8500);}else presentResult(ranking[0],ranking);
+}
+function crossDoor(position){audioSystem.stopSpeech();audioSystem.environment(Math.floor(position/3));active=false;pendingRound=true;hintAbort?.abort();clearInterval(typing);$('mission').hidden=true;$('hintbox').hidden=true;$('projection').hidden=true;transitionEnd=Date.now()+5000;state(position,'transition',transitionEnd);$('progress').textContent='Acesso a '+names[Math.floor(position/3)];$('clock').textContent='—';$('hint').disabled=true;}
+function advance(){if(!model.locked||!active)return;if(model.index===14)finish();else if((model.index+1)%3===0)crossDoor(model.index+1);else startRound();}
+$('next').onclick=advance;
+function syncClock(){if(!active)return;const left=model.remaining();$('clock').textContent=String(Math.ceil(left/1000));if(left<=0){if(model.expire()){lock();feedback('TEMPO ESGOTADO',false);}advance();}}
+setInterval(()=>{syncClock();if(pendingRound&&Date.now()>=transitionEnd){pendingRound=false;$('mission').hidden=false;startRound();}},100);
+$('hint').onclick=()=>{if(!active||!model.hint())return;$('hint').disabled=true;$('hint').textContent=`💡 ${model.hints}`;const token=generation;hintAbort=new AbortController();const q=questions[model.index];let revealed=false;
+ const show=()=>{if(revealed||hintAbort.signal.aborted||token!==generation||!active)return;revealed=true;$('hintbox').textContent=q.hint;$('hintbox').hidden=false;};
+ window.dispatchEvent(new CustomEvent('chem:hint-animation',{detail:{animation:[['holograma_atomico','scanner_ions'],['cristal_revelador','fragmentacao_cristalina'],['frasco_derramado','indicador_quimico'],['valvula_analise','simulacao_reacao'],['descarga_energetica','projecao_molecular']][Math.floor(model.index/3)][model.index%2],signal:hintAbort.signal,reveal:show}}));sound(true);setTimeout(show,1800);
+};
+$('minimize').onclick=()=>{const small=$('mission').classList.toggle('minimized');$('minimize').textContent=small?'Restaurar missão':'Explorar';$('minimize').setAttribute('aria-expanded',String(!small));};
+$('config').onclick=()=>{$('settings').hidden=!$('settings').hidden;$('config').setAttribute('aria-expanded',String(!$('settings').hidden));};
+$('reduced').onchange=()=>{const c=document.querySelector('[data-motion]');if(c){c.checked=$('reduced').checked;c.dispatchEvent(new Event('change'));}if($('reduced').checked&&active)reveal();};
+$('look').onclick=()=>document.querySelector('[data-center]')?.click();$('fullscreen').onclick=fullscreen;
+$('start').onclick=async()=>{await audioSystem.unlock();if(!document.querySelector('.b2-portal')){$('notice').textContent='WebGL indisponível neste navegador. Não foi possível iniciar o cenário.';return;}if($('roomcode').value.trim().toUpperCase()!=='DEMO'){$('notice').textContent='Nesta prévia local, use o código DEMO. Ele não é um código Supabase.';return;}$('gallery-panel').hidden=true;$('start').disabled=true;await fullscreen();$('splash').hidden=true;$('reduced').onchange();crossDoor(0);};
+document.addEventListener('visibilitychange',syncClock);
+
+const gallery=$('gallery-choice');catalog.forEach(q=>{const o=document.createElement('option');o.value=q.id;o.textContent=`${q.source_id} · ${names[q.environment_index]} · ${q.title}`;gallery.append(o);});
+function inspect(){const q=catalog.find(q=>q.id===Number(gallery.value));state(q.environment_index*3);showHologram(q);$('splash').hidden=true;$('mission').hidden=true;$('gallery-panel').hidden=false;$('progress').textContent='CATÁLOGO VISUAL — sem partida';}
+$('gallery-open').onclick=inspect;gallery.onchange=inspect;
+$('gallery-close').onclick=()=>{$('gallery-panel').hidden=true;$('projection').hidden=true;$('splash').hidden=false;$('mission').hidden=false;window.dispatchEvent(new CustomEvent('chem:access-preview'));};
+$('awards-open').onclick=()=>{$('splash').hidden=true;state(12);const position=Number($('award-choice').value);const p={id:'visual',nickname:'Exemplo de selo',position,score:0,correct_count:0,eliminated:false};presentResult(p,[p],{preview:true});};
+
+$('elimination-preview').onclick=()=>{$('splash').hidden=true;$('mission').hidden=true;state(Number($('elimination-room').value));const p={id:'visual',nickname:'Prévia de eliminação',position:1,score:0,correct_count:0,eliminated:true};window.dispatchEvent(new CustomEvent('chem:local-eliminated',{detail:{reduced:$('reduced').checked}}));setTimeout(()=>presentResult(p,[p],{preview:true}),$('reduced').checked?1000:8500);};
+
+function accessMode(create){$('join-fields').hidden=create;$('create-fields').hidden=!create;$('start').hidden=create;$('create-preview').hidden=!create;$('entry-create').setAttribute('aria-pressed',String(create));$('entry-join').setAttribute('aria-pressed',String(!create));$('notice').textContent='';}
+$('entry-create').onclick=()=>accessMode(true);$('entry-join').onclick=()=>accessMode(false);
+$('create-preview').onclick=()=>{const role=document.querySelector('input[name="host-role"]:checked').value;const labels={host_observer:'Anfitrião(ã) · observador(a)',teacher_observer:'Professor(a) anfitrião(ã) · observador(a)',host_player:'Jogador(a) anfitrião(ã)'};$('lobby-role').textContent=labels[role];$('lobby-person').textContent=$('nickname').value.trim()||'Seu nome';$('lobby-description').textContent=role==='host_player'?'Você administra a entrada e também responde às questões, recebe pontos e participa do ranking.':'Você administra a entrada e acompanha a competição, sem responder nem aparecer no ranking.';$('lobby-preview').hidden=false;$('lobby-back').focus();};
+$('lobby-back').onclick=()=>{$('lobby-preview').hidden=true;$('create-preview').focus();};
+$('roomcode').addEventListener('keydown',e=>{if(e.key==='Enter')$('start').click();});
+window.dispatchEvent(new CustomEvent('chem:access-preview'));
+
+function updateMute(){audioSystem.enabled=!$('sound').checked;audioSystem.update();$('mute').textContent=audioSystem.enabled?'🔊':'🔇';$('mute').setAttribute('aria-label','Abrir controles de áudio');$('mute').setAttribute('aria-pressed',String(!audioSystem.enabled));}
+$('sound').onchange=()=>{updateMute();audioSystem.save();};$('mute').onclick=()=>{$('settings').hidden=!$('settings').hidden;$('mute').setAttribute('aria-expanded',String(!$('settings').hidden));$('config').setAttribute('aria-expanded',String(!$('settings').hidden));if(!$('settings').hidden)$('volume-master').focus();};
+async function unlockOnGesture(){try{await audioSystem.unlock();}catch{$('notice').textContent='O navegador bloqueou o áudio; toque novamente para tentar.';}}
+document.addEventListener('pointerdown',unlockOnGesture,{once:true});document.addEventListener('keydown',unlockOnGesture,{once:true});
+for(const key of ['master','effects','music','voice'])$('volume-'+key).oninput=e=>{audioSystem.volumes[key]=Number(e.target.value);audioSystem.update();audioSystem.save();e.target.setAttribute('aria-valuetext',Math.round(Number(e.target.value)*100)+'%');};
+for(const key of ['master','effects','music','voice']){$('volume-'+key).value=audioSystem.volumes[key];$('volume-'+key).setAttribute('aria-valuetext',Math.round(audioSystem.volumes[key]*100)+'%');}$('sound').checked=!audioSystem.enabled;updateMute();
+$('settings').addEventListener('keydown',e=>{if(e.key==='Escape'){$('settings').hidden=true;$('mute').setAttribute('aria-expanded','false');$('mute').focus();}});
+$('speak').onclick=async()=>{await audioSystem.unlock();if(!audioSystem.speak(questions[model.index]||questions[0]))$('status').textContent='Se o som estiver silenciado, restaure-o. Se a voz não estiver disponível, leia o enunciado e as alternativas na tela.';};
+$('pause-voice').onclick=()=>audioSystem.pause();$('stop-voice').onclick=()=>audioSystem.stopSpeech();
+window.addEventListener('chem:local-error',e=>{if(e.detail.count<11)audioSystem.siren(e.detail.count>=5?3:1.4);});
+window.addEventListener('chem:local-eliminated',()=>{audioSystem.stopSpeech();audioSystem.siren(5);});
+window.addEventListener('chem:cinematic-cue',e=>audioSystem.effect(e.detail));
+$('trigger-alert').onclick=async()=>{await audioSystem.unlock();$('splash').hidden=true;$('mission').hidden=true;$('gallery-panel').hidden=false;state(0);window.dispatchEvent(new CustomEvent('chem:local-error',{detail:{count:Number($('test-error').value),reduced:$('reduced').checked}}));};
+
+window.addEventListener('chem:mechanical-motion',e=>audioSystem.mechanical(e.detail));
+document.addEventListener('visibilitychange',()=>{if(document.hidden)audioSystem.mechanical(false);});
+
+installMultiplayer({$,audio:audioSystem,state,presentResult,catalog,showHologram,hideHologram});
+</script><script type="module" src="./integration.js"></script></html>
